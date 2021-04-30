@@ -48,12 +48,7 @@ public class UserController {
     /*Add new user*/
     @PostMapping("/users")
     public Users newUser(@RequestBody Users newUser) {
-/*
-        Users user = new Users(newUser.getProfilePicture(),newUser.getName(), newUser.getCompany(), newUser.getEmail(), newUser.getPhone());
-*/
-
         return repository.save(newUser);
-
     }
 
 }
