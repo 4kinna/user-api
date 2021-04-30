@@ -1,7 +1,6 @@
 package com.example.userapi.sevice;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -33,26 +32,18 @@ public class UserController {
     }
 
 
-    /*Update a specific user*/
-    /*TODO does not work in insomnia*/
-/*    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") long id, @RequestBody User userDetails) {
-        User user = this.users.stream().filter(u -> u.getId() == id).findAny().orElse(null);
+    /*Update a specific user depending on ID*/
+   @PutMapping("/users/{userid}")
+    public Optional<Users> updateUser(@PathVariable(value = "userid") Integer userid, @RequestBody Users userDetails) {
+       return repository.findById(userid).map(user ->{
+           user.setProfilePicture(userDetails.getProfilePicture());
+           user.setName(userDetails.getName());
+           user.setCompany(userDetails.getCompany());
+           user.setEmail(userDetails.getEmail());
+           user.setPhone(userDetails.getPhone());
+           return repository.save(user);
+       });
 
-        //https://stackoverflow.com/questions/8520808/how-to-remove-specific-object-from-arraylist-in-java
-
-        if (user == null) {
-            return null;
-        } else {
-            User u = new User(user.getId(), userDetails.getProfilePicture(),userDetails.getName(),userDetails.getCompany(), userDetails.getEmail(), userDetails.getPhone());
-
-            this.users.remove(user);
-            this.users.add(u);
-            return ResponseEntity.ok(u);
-
-        }
-
-
-    }*/
+    }
 }
 

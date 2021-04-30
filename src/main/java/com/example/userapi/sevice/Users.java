@@ -30,7 +30,7 @@ public class Users {
         this.phone = phone;
     }
 
-    public Integer getId() {
+    public Integer getUserId() {
         return userid;
     }
 
