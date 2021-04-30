@@ -2,14 +2,14 @@ package com.example.userapi.sevice;
 
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name="users", schema = "dbo")
 public class Users {
     @Id
+    @Column(name="userid")
     @GeneratedValue
     private Integer userid;
     private String profilepicture;

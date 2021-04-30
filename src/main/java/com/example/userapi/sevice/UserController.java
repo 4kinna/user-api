@@ -26,24 +26,35 @@ public class UserController {
 
     /*Remove specific user*/
     @DeleteMapping("/users/{userid}")
-    public void deleteUser(@PathVariable(value="userid") Integer userid){
+    public void deleteUser(@PathVariable(value = "userid") Integer userid) {
 
         repository.deleteById(userid);
     }
 
 
     /*Update a specific user depending on ID*/
-   @PutMapping("/users/{userid}")
+    @PutMapping("/users/{userid}")
     public Optional<Users> updateUser(@PathVariable(value = "userid") Integer userid, @RequestBody Users userDetails) {
-       return repository.findById(userid).map(user ->{
-           user.setProfilePicture(userDetails.getProfilePicture());
-           user.setName(userDetails.getName());
-           user.setCompany(userDetails.getCompany());
-           user.setEmail(userDetails.getEmail());
-           user.setPhone(userDetails.getPhone());
-           return repository.save(user);
-       });
+        return repository.findById(userid).map(user -> {
+            user.setProfilePicture(userDetails.getProfilePicture());
+            user.setName(userDetails.getName());
+            user.setCompany(userDetails.getCompany());
+            user.setEmail(userDetails.getEmail());
+            user.setPhone(userDetails.getPhone());
+            return repository.save(user);
+        });
+    }
+
+    /*Add new user*/
+    @PostMapping("/users")
+    public Users newUser(@RequestBody Users newUser) {
+/*
+        Users user = new Users(newUser.getProfilePicture(),newUser.getName(), newUser.getCompany(), newUser.getEmail(), newUser.getPhone());
+*/
+
+        return repository.save(newUser);
 
     }
+
 }
 
